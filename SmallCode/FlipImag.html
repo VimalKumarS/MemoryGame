@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        /* =============================================================================
+  RESET
+============================================================================= */
+        html, body, div, span, applet, object, iframe,
+        h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+        a, abbr, acronym, address, big, cite, code,
+        del, dfn, em, img, ins, kbd, q, s, samp,
+        small, strike, strong, sub, sup, tt, var,
+        b, u, i, center,
+        dl, dt, dd, ol, ul, li,
+        fieldset, form, label, legend,
+        table, caption, tbody, tfoot, thead, tr, th, td,
+        article, aside, canvas, details, embed,
+        figure, figcaption, footer, header, hgroup,
+        menu, nav, output, ruby, section, summary,
+        time, mark, audio, video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+        }
+
+        article, aside, details, figcaption, figure,
+        footer, header, hgroup, menu, nav, section {
+            display: block;
+        }
+
+        body {
+            line-height: 1;
+        }
+
+        ol, ul {
+            list-style: none;
+        }
+
+        blockquote, q {
+            quotes: none;
+        }
+
+        blockquote:before, blockquote:after,
+        q:before, q:after {
+            content: '';
+            content: none;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        /* =============================================================================
+          BOX SIZING & CLEARFIX
+        ============================================================================= */
+        *,
+        *::before,
+        *::after {
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* =============================================================================
+          BASE
+        ============================================================================= */
+        /* body */
+        body {
+            background-color: #fff;
+            color: #787878;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section__title {
+            font-family: "Roboto Slab", serif;
+            font-size: 40px;
+        }
+
+        .section__content {
+            padding-left: 3px;
+
+        }
+        #gridWrapper{
+
+        }
+        .section__content_inner {
+            margin: 0 auto;
+
+        }
+        .card {
+            position: relative;
+            float: left;
+            padding-bottom: 10%;
+            width: 10%;
+            height: 100%;
+            text-align: center;
+
+            display: block;
+        }
+
+        .card:nth-child(n) {
+            margin-left: 3px;
+            margin-right: 3px;
+            margin-top: 3px;
+        }
+
+        .card:nth-child(2n) {
+            margin-right: 3px;
+            margin-top: 3px;
+        }
+
+        /* card fronts and backs */
+        .card__front,
+        .card__back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            box-shadow: 5px 5px 5px black;
+        }
+
+        .card__front,
+        .card__back {
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -webkit-transition: -webkit-transform 0.3s;
+            transition: transform 0.3s;
+        }
+
+        .card__front {
+            background-color: #ff5078;
+        }
+
+        .card__back {
+            background-color: #1e1e1e;
+            -webkit-transform: rotateY(-180deg);
+            transform: rotateY(-180deg);
+        }
+
+        /* card text */
+        .card__text {
+            display: inline-block;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto;
+            height: 20px;
+            color: #fff;
+            font-family: "Roboto Slab", serif;
+            line-height: 20px;
+        }
+
+        .card__back {
+            background-color: #1e1e1e;
+            -webkit-transform: rotateY(-180deg);
+            transform: rotateY(-180deg);
+        }
+
+        .card.effect__hover:hover .card__front {
+            -webkit-transform: rotateY(-180deg);
+            transform: rotateY(-180deg);
+        }
+
+        .card.effect__hover:hover .card__back {
+            -webkit-transform: rotateY(0);
+            transform: rotateY(0);
+        }
+
+        .card.effect__click.flipped .card__front {
+            -webkit-transform: rotateY(-180deg);
+            transform: rotateY(-180deg);
+        }
+
+        .card.effect__click.flipped .card__back {
+            -webkit-transform: rotateY(0);
+            transform: rotateY(0);
+        }
+        .gameSelection
+        {
+            margin:auto;
+            width: 30%;
+        }
+        .gameSelection-select{
+                list-style: none;
+            text-align: center;
+        }
+        .gameSelection-select span{
+                cursor: pointer;
+                font-size: 20px;
+
+        }
+        .gameSelection-select span:hover{
+            background-color: lightcoral;
+            width: 100%;
+        }
+    </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js" type="application/javascript"></script>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="section">
+        <h2 class="section__title">Memory Game</h2>
+    </div>
+
+        <div id="gridWrapper" class="section">
+
+    </div>
+    <div class="gameSelection">
+        <ul class="gameSelection-select">
+            <li><span data-value="1">Level 1 - Easy (4 x 2)</span></li>
+            <li><span data-value="2">Level 2 - Medium (5 x 4)</span></li>
+            <li><span data-value="3">Level 3 - Hard (6 x 5)</span></li>
+        </ul>
+    </div>
+
+    <!--
+    <div class="section">
+        <h2 class="section__title">On Hover</h2>
+
+        <div class="section__content clearfix">
+            <div class="card effect__hover">
+                <div class="card__front">
+                    <span class="card__text">front</span>
+                </div>
+                <div class="card__back">
+                    <span class="card__text">back</span>
+                </div>
+            </div>
+            <div class="card effect__click">
+                <div class="card__front">
+                    <span class="card__text">front</span>
+                </div>
+                <div class="card__back">
+                    <span class="card__text">back</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section__title">On Click</h2>
+
+        <div class="section__content clearfix">
+            <div class="card effect__click">
+                <div class="card__front">
+                    <span class="card__text">front</span>
+                </div>
+                <div class="card__back">
+                    <span class="card__text">back</span>
+                </div>
+            </div>
+
+            <div class="card effect__click">
+                <div class="card__front">
+                    <span class="card__text">front</span>
+                </div>
+                <div class="card__back">
+                    <span class="card__text">back</span>
+                </div>
+            </div>
+
+            <div class="card effect__click">
+                <div class="card__front">
+                    <span class="card__text">front</span>
+                </div>
+                <div class="card__back">
+                    <span class="card__text">back</span>
+                </div>
+            </div>
+
+            <div class="card effect__click">
+                <div class="card__front">
+                    <span class="card__text">front</span>
+                </div>
+                <div class="card__back">
+                    <span class="card__text">back</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+-->
+
+</div>
+<script>
+ // 6*5  5*4 4*2
+    var rows = 5;
+    var columns = 6;
+    var $row = $("<div />", {
+        class: 'section__content_inner clearfix'
+
+    });
+    var sectionWidth=columns*100+100;
+    $row.css({'width':sectionWidth+'px'});
+    var $square = $("<div />", {
+        class: 'card effect__click',
+
+    });
+    var width=100;//($(".container").width()-40)/columns;
+    var height=100;//($(".container").height()-0)/rows;
+    $square.css({'width':width+'px','height':height+'px'});
+
+    var $cardFront=$("<div />", {
+        class: 'card__front'
+    });
+    var $cardBack=$("<div />", {
+        class: 'card__back'
+    });
+    $square.append($cardFront);
+    $square.append($cardBack);
+
+    $(document).ready(function () {
+        //add columns to the the temp row object
+        for (var i = 0; i < columns; i++) {
+            $row.append($square.clone());
+        }
+        //clone the temp row object with the columns to the wrapper
+        for (var i = 0; i < rows; i++) {
+            $("#gridWrapper").append($row.clone());
+        }
+        bindGridFlip();
+    });
+
+    var bindGridFlip=function () {
+        var cards = document.querySelectorAll(".card.effect__click");
+        for (var i = 0, len = cards.length; i < len; i++) {
+            var card = cards[i];
+            clickListener(card);
+        }
+
+        function clickListener(card) {
+            card.addEventListener("click", function () {
+                var c = this.classList;
+                c.contains("flipped") === true ? c.remove("flipped") : c.add("flipped");
+            });
+        }
+    };
+</script>
+</body>
+</html>
