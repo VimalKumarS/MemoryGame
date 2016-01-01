@@ -1,5 +1,8 @@
 # MemoryGame
 
-!https://github.com/VimalKumarS/MemoryGame/blob/master/Capture1.PNG](https://github.com/VimalKumarS/MemoryGame/blob/master/Capture1.PNG)
+To run the project
+- Run the file /MemoryGame/MemoryGame.html
 
-!https://github.com/VimalKumarS/MemoryGame/blob/master/Capture2.PNG](https://github.com/VimalKumarS/MemoryGame/blob/master/Capture2.PNG)
+![alt tag](https://github.com/VimalKumarS/MemoryGame/blob/master/Capture1.PNG)
+![alt tag](https://github.com/VimalKumarS/MemoryGame/blob/master/Capture2.PNG)
+
